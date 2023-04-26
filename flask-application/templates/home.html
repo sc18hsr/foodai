@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Hello From Flask</h1>
+    <form action="{{ url_for('search') }}" method="post">
+        <label for="search_query">Search Query:</label>
+        <input type="text" name="search_query" id="search_query">
+        <button type="submit">Search</button>
+      </form>
+      
+      {% if data %}
+      <form action="{{ url_for('detail') }}" method="get">
+        <label for="id">Select an item:</label>
+        <select name="id" id="id">
+          {% for name, id in data.items() %}
+            <option value="{{ url_for('detail', id=id) }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">View Details</button>
+      </form>
+    {% else %}
+      <p>No results found</p>
+    {% endif %}
+
+
+    <a href="{{url_for('login')}}">Login</a>
+    <a href="{{url_for('register')}}">Register</a>
+</body>
+
+
+</html>
