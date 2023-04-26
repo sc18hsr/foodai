@@ -1,32 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block title %} Register {% endblock %} 
 
-    <script src="https://kit.fontawesome.com/eea0a5e16b.js" crossorigin="anonymous"></script>
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
-    <title>Home</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    
-    {{ bootstrap.load_css() }}
-    <style>
-        pre {
-            background: #ddd;
-            padding: 10px;
-        }
-        h2 {
-            margin-top: 20px;
-        }
-        footer {
-            margin: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    {% include 'includes/navigation.html' %}
+{% block content %}
     <h1>register</h1>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -35,8 +14,8 @@
         {{ form.submit }}
     </form>
     <a href="{{url_for('login')}}">Already have an account? Login</a>
-    
-</body>
 
+{% endblock content %}
 
-</html>
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

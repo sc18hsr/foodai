@@ -1,0 +1,31 @@
+{% from 'bootstrap5/utils.html' import render_messages %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/eea0a5e16b.js" crossorigin="anonymous"></script>
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="style.css">
+    
+    {{ bootstrap.load_css() }}
+
+<!--  Page specific css  -->    
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body>
+    {% include 'includes/navigation.html' %}
+
+    {% block content %}{% endblock content %}
+
+    {% include 'includes/footer.html' %}
+
+    <!--  Page specific js  -->   
+    {% block javascripts %}{% endblock javascripts %}
+
+</body>
+</html>
