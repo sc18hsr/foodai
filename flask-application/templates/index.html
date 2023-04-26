@@ -1,0 +1,36 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/custom.css">
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <h1>Flask Image Upload and Show</h1>
+    <form method='post' enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {% for error in form.photo.errors %}
+            <span style="color:red;"> {{ error }}</span>
+        {% endfor %}
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                {{ form.photo(class="form-control") }}
+            </div>
+            <div class=""col-auto">
+                {{ form.submit(class="btn btn-successs") }}
+            </div>
+        </div>
+    </form>
+
+    {% if file_url %}
+    <div class="mt-5">
+        <img src="{{ file_url }}" style="width:400px;">
+    </div>
+    {% endif %}
+    {% if labels %}
+    <h1>{{ labels[0] }}</h1>
+    {% endif %}
+</body>
