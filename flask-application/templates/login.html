@@ -6,6 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+<div class="container" style="padding-left: 10px; padding-right: 10px;padding-bottom: 100px;">
+    {{ bootstrap.load_js() }}
     <h1>Login</h1>
 
     <form method="POST" action="">
@@ -15,7 +17,7 @@
         {{ form.submit }}
     </form>
     <a href="{{url_for('register')}}">Don't have an account? SignUp</a>
-
+</div>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

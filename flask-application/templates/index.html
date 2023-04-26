@@ -6,8 +6,12 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <div class="container" style="padding-left: 10px; padding-right: 10px;">
+    {{ bootstrap.load_js() }}
+    <div class="container" style="padding-left: 10px; padding-right: 10px;padding-bottom: 100px;">
         <h2>Image Upload</h2>
+        <div style="padding-bottom: 20px;">
+            Upload an image with ingredients to find what you can make with it.
+        </div>
         <form method='post' enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {% for error in form.photo.errors %}
@@ -18,7 +22,7 @@
                     {{ form.photo(class="form-control") }}
                 </div>
                 <div class="col-auto">
-                    {{ form.submit(class="btn btn-successs") }}
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>
             </div>
         </form>
