@@ -20,6 +20,8 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 import os
 
+from flask_bootstrap import Bootstrap5
+
 #images folder
 IMAGE_FOLDER = 'static'
 
@@ -102,7 +104,8 @@ class LoginForm(FlaskForm):
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    img_filename = os.path.join(app.config['IMAGE_FOLDER'], 'im-121422.jpeg')
+    return render_template('home.html', banner_image = img_filename)
 
 @app.route('/dashboard', methods = ['GET','POST'])
 @login_required
@@ -120,7 +123,7 @@ def login():
                 return redirect(url_for('dashboard'))
     return render_template('login.html',form = form)
 
-@app.route('/login', methods = ['GET','POST'])
+@app.route('/logout', methods = ['GET','POST'])
 @login_required
 def logout():
     logout_user()
