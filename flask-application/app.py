@@ -28,6 +28,9 @@ IMAGE_FOLDER = 'static'
  # db intitialized here
 app = Flask(__name__)
 
+# initialise bootstrap
+bootstrap = Bootstrap5(app)
+
 #hash function
 bcrypt = Bcrypt(app)
 
@@ -187,6 +190,7 @@ def upload_image():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    img_filename = os.path.join(app.config['IMAGE_FOLDER'], 'im-121422.jpeg')
     if request.method == 'POST':
         search_query = request.form['search_query']
         filtered_data = df[df['name'].str.contains(search_query)]
@@ -194,8 +198,8 @@ def search():
         # create a dictionary that maps each name value to its corresponding id value
         id_dict = {row['name']: row['id'] for _, row in filtered_data.iterrows()}
 
-        return render_template('home.html', data=id_dict)
-    return render_template('home.html')
+        return render_template('home.html', data=id_dict, banner_image = img_filename)
+    return render_template('home.html', banner_image = img_filename, search='yes')
 
 @app.route('/detail')
 def detail():
@@ -221,4 +225,3 @@ def detail():
         return "Error: Invalid item ID"
 if __name__ == '__main__':
     app.run(debug=True)
-

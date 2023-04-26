@@ -1,4 +1,3 @@
-{% from 'bootstrap5/nav.html' import render_nav_item %}
 {% from 'bootstrap5/utils.html' import render_messages %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://kit.fontawesome.com/eea0a5e16b.js" crossorigin="anonymous"></script>
+
     <title>Home</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
     {{ bootstrap.load_css() }}
     <style>
         pre {
@@ -25,22 +27,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {{ render_nav_item('dashboard', 'Home') }}
-                    {{ render_nav_item('login', 'Login') }}
-                    {{ render_nav_item('register', 'Register') }}
-                    <li class="nav-item"><a class="nav-link" href="https://github.com/helloflask/bootstrap-flask" target="_blank">GitHub</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {% include 'includes/navigation.html' %}
 
     <main class="container">
         {{ render_messages(container=False, dismissible=True, dismiss_animate=True) }}
@@ -49,38 +36,60 @@
 
     {{ bootstrap.load_js() }}
 
-    <div class="container-sm-1">
+    <div style="position:relative;" class="container-sm mb-4">  
         <h2>FoodAI</h2>
-        <img src="{{banner_image}}" alt="Cooking Banner Image">
+
+        <img src = "{{banner_image}}" class="img-fluid">
+
+        <div style="position:absolute;
+            width:50%;
+            background-color:rgba(255, 255, 255, 0.632);
+            color:rgba(255, 255, 255, 0.916);
+            top: 100px;
+            bottom:50px;
+            left:100px;
+            padding-left:20px;
+            padding-right:20px;
+            padding-bottom:20px;
+            padding-top:50px;
+            font-size:17px;
+            z-index:2;">
+
+            <h3 style ="color:rgb(50, 33, 33)">Find A Recipe</h3>
+
+            <!-- search box -->
+            <div>
+                <form action="{{ url_for('search') }}" method="post">
+                    <div class="input-group">
+                        <input class="form-control border-end-0 border rounded-pill" type="search" name="search_query" id="search_query">
+                        <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                {% if data %}
+                <form action="{{ url_for('detail') }}" method="get">
+                    <label for="id" style ="color:rgb(50, 33, 33)">Found many results for your search. Choose one:</label>
+                    <div class="input-group">
+                        <select class="form-select" name="id" id="id">
+                        {% for name, id in data.items() %}
+                            <option value="{{ url_for('detail', id=id) }}">{{ name }}</option>
+                        {% endfor %}
+                        </select>
+                        <button class="btn btn-primary" type="submit">View Details</button>
+                    </div>
+                </form>
+                {% else %}
+                {% if search %}
+                <div><p>No results found</p></div>
+                {% endif %}
+                {% endif %}
+                </div>
+        </div> 
     </div>
 
-    <!-- search box -->
-    <form action="{{ url_for('search') }}" method="post">
-        <label for="search_query">Search Query:</label>
-        <input type="text" name="search_query" id="search_query">
-        <button type="submit">Search</button>
-      </form>
-      
-      {% if data %}
-      <form action="{{ url_for('detail') }}" method="get">
-        <label for="id">Select an item:</label>
-        <select name="id" id="id">
-          {% for name, id in data.items() %}
-            <option value="{{ url_for('detail', id=id) }}">{{ name }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit">View Details</button>
-      </form>
-    {% else %}
-      <p>No results found</p>
-    {% endif %}
-
-    <footer class="text-center">
-        {% block footer %}
-            <small> &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://github.com/">Food AI - University of Leeds</a>
-            </small>
-        {% endblock %}
-    </footer>
+    {% include 'includes/footer.html' %}
 
 </body>
 </html>

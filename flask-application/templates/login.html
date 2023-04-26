@@ -2,11 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://kit.fontawesome.com/eea0a5e16b.js" crossorigin="anonymous"></script>
+
     <title>Home</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    {{ bootstrap.load_css() }}
+    <style>
+        pre {
+            background: #ddd;
+            padding: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        footer {
+            margin: 20px;
+        }
+    </style>
 </head>
 
 <body>
+    {% include 'includes/navigation.html' %}
     <h1>Login</h1>
 
     <form method="POST" action="">
